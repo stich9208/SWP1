@@ -8,11 +8,14 @@ def application(environ, start_response):
 	b = q.get('b', [''])[0]
 	plus, time = 0, 0	
 
-	if '' not in[a, b]:
+	try:
 		a, b = int(a), int(b)	
 		plus = a + b
 		time = a * b
 
+	except ValueError:
+		plus = - 1
+		time = - 1	
 	
 	response_body = html % {'plus':plus, 'time':time}
 	start_response('200 OK', [
